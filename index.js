@@ -176,15 +176,15 @@ getCoin("usdtCoin", 'https://rest.coinapi.io/v1/exchangerate/USDT/USD', "5D1FBF8
 	res.send([
 		{
 			valueText: btcCoin,
-			valueIMG: "http://localhost:5000/uploads/iconBitCoin.svg",
+			valueIMG: "uploads/iconBitCoin.svg",
 		},
 		{
 			valueText: ethCoin,
-			valueIMG: "http://localhost:5000/uploads/iconEffir.svg",
+			valueIMG: "uploads/iconEffir.svg",
 		},
 		{
 			valueText: usdtCoin,
-			valueIMG: "http://localhost:5000/uploads/iconTcoin.svg",
+			valueIMG: "uploads/iconTcoin.svg",
 		}
 	])
 })
