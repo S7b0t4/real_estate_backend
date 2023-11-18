@@ -5,10 +5,10 @@ import multer from 'multer'
 import cors from 'cors';
 import path from 'path';
 import fs from 'fs';
+import fetch from 'node-fetch';
 
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import middlewares from "./middlewares"
 
 const corsOrigin ={
     origin:'http://localhost:3000',
@@ -106,14 +106,6 @@ app.get("/random", async (req, res) => {
 	res.json(randomElements)
 })
 
-app.get('/:id', async (req, res) => {
-	res.set("Access-Control-Allow-Origin", "*")
-	const Posts = await Post.find();
-	const id = req.params.id;
-	const obj = Posts.find(obj => obj._id.toString() === id)
-	res.send(obj)
- });
-
 app.get("/get-data", async (req, res) => {
 	res.set("Access-Control-Allow-Origin", "*")
   fs.readdir(uploadDirectory, (err, files) => {
@@ -147,3 +139,60 @@ app.post("/", (req, res) => {
 	console.log(req.body)
 	addToDB(req, res)
 })
+
+let ethCoin = 0
+let btcCoin = 0
+let usdtCoin = 0
+
+const getCoin = (i, link, key) => {
+	fetch(link, {
+	headers: {
+	    "X-CoinAPI-Key": key
+	    }
+	})
+	.then(response => response.json())
+	.then(data => {
+	  if(i === "ethCoin"){
+			ethCoin = "~$"+data.rate.toFixed(2)
+		}
+		if(i === "btcCoin"){
+			btcCoin = "~$"+data.rate.toFixed(2)
+		}
+		if(i === "usdtCoin"){
+			usdtCoin = "~$"+data.rate.toFixed(9)
+		}
+	})
+	.catch(error => console.error('Error:', error));
+}
+
+getCoin("ethCoin", 'https://rest.coinapi.io/v1/exchangerate/ETH/USD', "8BCFCBCB-2BDA-4F41-9B8A-D80C5020178F")
+getCoin("btcCoin", 'https://rest.coinapi.io/v1/exchangerate/BTC/USD', "D8EA801D-388D-4FFE-86E8-75EDEDD725F3")
+getCoin("usdtCoin", 'https://rest.coinapi.io/v1/exchangerate/USDT/USD', "5D1FBF83-4612-4B21-B5D8-CDD46B55AD7D")
+
+
+
+ app.get("/coins", async (req, res) => {
+	res.set("Access-Control-Allow-Origin", "*")
+	res.send([
+		{
+			valueText: btcCoin,
+			valueIMG: "http://localhost:5000/uploads/iconBitCoin.svg",
+		},
+		{
+			valueText: ethCoin,
+			valueIMG: "http://localhost:5000/uploads/iconEffir.svg",
+		},
+		{
+			valueText: usdtCoin,
+			valueIMG: "http://localhost:5000/uploads/iconTcoin.svg",
+		}
+	])
+})
+
+app.get('/:id', async (req, res) => {
+	res.set("Access-Control-Allow-Origin", "*")
+	const Posts = await Post.find();
+	const id = req.params.id;
+	const obj = Posts.find(obj => obj._id.toString() === id)
+	res.send(obj)
+ });
