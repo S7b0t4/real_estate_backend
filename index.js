@@ -5,7 +5,7 @@ import cors from 'cors'
 import fs from 'fs'
 import fetch from 'node-fetch'
 
-import uploadImg from "./uploadImg.js"
+import uploadImg from "./tamplate/uploadImg.js"
 
 const corsOrigin = {
 	origin: 'http://localhost:3000',
