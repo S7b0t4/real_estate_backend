@@ -1,10 +1,12 @@
 import { fileURLToPath } from 'url'
-import { dirname, join } from 'path'
+import { dirname } from 'path'
+
+import Express from 'express'
 
 import path from 'path'
 import multer from 'multer'
 
-const uploadImg = () => {
+const uploadImg = (app) => {
 
 	const __filename = fileURLToPath(import.meta.url)
 	const __dirname = dirname(__filename)

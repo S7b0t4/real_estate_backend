@@ -1,14 +1,11 @@
 import Express from 'express'
 import mongoose from 'mongoose'
 import Post from './Post.js'
-import multer from 'multer'
 import cors from 'cors'
-import path from 'path'
 import fs from 'fs'
 import fetch from 'node-fetch'
 
-import { fileURLToPath } from 'url'
-import { dirname, join } from 'path'
+import uploadImg from "./uploadImg.js"
 
 const corsOrigin = {
 	origin: 'http://localhost:3000',
@@ -25,28 +22,7 @@ const app = Express()
 app.use(cors(corsOrigin))
 app.use(Express.json())
 
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
-
-const uploadDirectory = path.join(__dirname, 'uploads')
-
-const storage = multer.diskStorage({
-	destination: function (req, file, cb) {
-		cb(null, uploadDirectory)
-	},
-	filename: function (req, file, cb) {
-		cb(null, file.originalname)
-	}
-})
-
-const upload = multer({ storage: storage })
-app.use('/uploads', Express.static(uploadDirectory))
-
-const srcDirectory = path.join(__dirname, 'src')
-
-app.use('/src', Express.static(srcDirectory))
-
+uploadImg(app)
 
 async function startApp() {
 	console.log("server is starting")
@@ -117,13 +93,6 @@ app.post("/delete", (req, res) => {
 		res.status(500).json(e)
 	}
 })
-
-app.post("/post-photo", upload.single('file'), async (req, res) => {
-	res.set("Access-Control-Allow-Origin", "*")
-	console.log(req.body)
-	res.status(200).json("Successful")
-})
-
 
 app.post("/", (req, res) => {
 	res.set("Access-Control-Allow-Origin", "*")
