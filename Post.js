@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 const Post = new mongoose.Schema({
 		title: {type: String, required: true},
 		subTitle: {type: String, required: true},
+		type: {type: Array, required: true},
 		sell: {type: String, required: true},
 		rent: {type: String, required: true},
 		squareImg: {type: Array, required: true},
