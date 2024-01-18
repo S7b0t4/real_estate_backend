@@ -8,6 +8,7 @@ import uploadImg from "./template/uploadImg.js"
 import addToDB from './template/addToDB.js'
 import getRandom from './template/getRandom.js'
 import getCoins from './template/getCoins.js'
+import filtration from './template/filtration.js'
 
 const corsOrigin = {
 	origin: 'http://localhost:3000',
@@ -44,9 +45,17 @@ startApp()
 uploadImg(app)
 getRandom(app)
 getCoins(app)
+filtration(app)
+
+app.post("/filter", async (req, res) => {
+	res.set("Access-Control-Allow-Origin", "*")
+	console.log(req.body)
+	const Posts = await Post.find().sort(req.body)
+	res.send(Posts)
+})
 
 app.get("/", async (req, res) => {
-	const Posts = await Post.find()
+	const Posts = await Post.find().sort()
 	res.set("Access-Control-Allow-Origin", "*")
 	res.json(Posts)
 })
@@ -75,7 +84,6 @@ app.post("/delete", (req, res) => {
 
 app.post("/", (req, res) => {
 	res.set("Access-Control-Allow-Origin", "*")
-	console.log(req.body)
 	addToDB(req, res)
 })
 
