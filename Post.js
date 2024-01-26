@@ -6,6 +6,8 @@ const Post = new mongoose.Schema({
 		type: {type: Array, required: true},
 		sell: {type: Number, required: false},
 		rent: {type: Number, required: false},
+		country: {type: String, required: true},
+		city: {type: String, required: true},
 		infoNumbers: {type: Array, required: true},
 		squareImg: {type: Array, required: true},
 		mainIMG: {type: Array, required: true},
