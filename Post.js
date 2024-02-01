@@ -14,7 +14,6 @@ const Post = new mongoose.Schema({
 		filterTag: {type: Array, required: true},
 		compInfo: {type: Array, required: true},
 		cost: {type: Array, required: true},
-		iconMapIMG: {type: Array, required: true},
 		tag: {type: Array, required: true}, 
 		textInfo:{type: Array, required: true},
 })
