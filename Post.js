@@ -5,6 +5,8 @@ const Post = new mongoose.Schema({
 		subTitle: {type: String, required: true},
 		type: {type: Array, required: true},
 		sell: {type: Number, required: false},
+		number: {type: String, required: true},
+		mail: {type: String, required: true},
 		rent: {type: Number, required: false},
 		country: {type: String, required: true},
 		city: {type: String, required: true},
