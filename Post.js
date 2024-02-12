@@ -2,7 +2,6 @@ import mongoose from 'mongoose';
 
 const Post = new mongoose.Schema({
 		title: {type: String, required: true},
-		subTitle: {type: String, required: true},
 		type: {type: Array, required: true},
 		sell: {type: Number, required: false},
 		number: {type: String, required: true},
@@ -16,7 +15,6 @@ const Post = new mongoose.Schema({
 		specialInfo: {type: Array, required: true},
 		infoNumbers: {type: Array, required: true},
 		squareImg: {type: Array, required: true},
-		mainIMG: {type: Array, required: true},
 		filterTag: {type: Array, required: true},
 		compInfo: {type: Array, required: true},
 		cost: {type: Array, required: true},

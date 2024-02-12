@@ -8,7 +8,6 @@ const filtration = ( app ) => {
 
 		const yearOfConstruction = req.yearOfConstruction
 		const squares = req.squares
-		console.log(req)
 
 		if (!req.idontcare){
 			if (req.sortBy == "Buy"){
@@ -39,8 +38,6 @@ const filtration = ( app ) => {
 		if(req.city){
 			filter.city = req.city
 		}
-		console.log(req.readymove)
-		console.log(req.beingbuild)
 		if(req.readymove || req.beingbuild){
 			filter.specialInfo = [{
 				"title":"readytomove",
@@ -56,8 +53,6 @@ const filtration = ( app ) => {
 		if(req.beingbuild){
 			filter.specialInfo[1].value = req.beingbuild
 		}
-
-		console.log(filter)
 		const Posts = await Post.find(filter)
 		res.send(Posts)
 	})
