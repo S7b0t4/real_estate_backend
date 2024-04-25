@@ -1,7 +1,7 @@
 import Post from '../Post.js'
 
 const filtration = ( app ) => {
-	app.post("/get-filter", async (req, res) => {
+	app.post("/real-estate-backend/get-filter", async (req, res) => {
 		res.set("Access-Control-Allow-Origin", "*")
 		let filter = {}
 		req = req.body

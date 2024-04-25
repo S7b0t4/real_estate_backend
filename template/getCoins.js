@@ -30,7 +30,7 @@ const getCoins = (app) => {
 
 
 
-	app.get("/coins", async (req, res) => {
+	app.get("/real-estate-backend/coins", async (req, res) => {
 		res.set("Access-Control-Allow-Origin", "*")
 		res.send([
 			{

@@ -3,6 +3,9 @@ import mongoose from "mongoose";
 import Post from "./Post.js";
 import cors from "cors";
 import fs from "fs";
+import * as path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
 import uploadImg from "./template/uploadImg.js";
 import addToDB from "./template/addToDB.js";
@@ -19,12 +22,22 @@ const corsOrigin = {
 const DB_URL =
   "mongodb+srv://S7b0t4:228008@cluster0.cpkfqq3.mongodb.net/?retryWrites=true&w=majority";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const PORT = 5000;
 
 const app = Express();
 
 app.use(cors(corsOrigin));
 app.use(Express.json());
+
+app.use(Express.static(path.join(__dirname, 'Client', 'build')));
+
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'Client', 'build', 'index.html'));
+});
 
 async function startApp() {
   console.log("server is starting");
@@ -45,21 +58,20 @@ uploadImg(app);
 getRandom(app);
 getCoins(app);
 filtration(app);
-
-app.post("/filter", async (req, res) => {
+app.post("/real-estate-backend/filter", async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
   console.log(req.body);
   const Posts = await Post.find().sort(req.body);
   res.send(Posts);
 });
 
-app.get("/", async (req, res) => {
+app.get("/real-estate-backend", async (req, res) => {
   const Posts = await Post.find().sort();
   res.set("Access-Control-Allow-Origin", "*");
   res.json(Posts);
 });
 
-app.get("/get-data", async (req, res) => {
+app.get("/real-estate-backend/get-data", async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
   fs.readdir(uploadDirectory, (err, files) => {
     if (err) {
@@ -69,7 +81,7 @@ app.get("/get-data", async (req, res) => {
   });
 });
 
-app.post("/delete", (req, res) => {
+app.post("/real-estate-backend/delete", (req, res) => {
   try {
     Post.deleteMany({ minimum_nights: "2" }).then((result) => {
       console.log(result);
@@ -80,12 +92,12 @@ app.post("/delete", (req, res) => {
   }
 });
 
-app.post("/", (req, res) => {
+app.post("/real-estate-backend", (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
   addToDB(req, res);
 });
 
-app.get("/:id", async (req, res) => {
+app.get("/real-estate-backend/:id", async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
   const Posts = await Post.find();
   const id = req.params.id;

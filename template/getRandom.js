@@ -11,7 +11,7 @@ const getRandom = (app) =>{
 		return randomElements
 	}
 	
-	app.get("/random", async (req, res) => {
+	app.get("/real-estate-backend/random", async (req, res) => {
 		const Posts = await Post.find()
 		res.set("Access-Control-Allow-Origin", "*")
 		const randomElements = getRandomElementsFromArray(Posts, 4)

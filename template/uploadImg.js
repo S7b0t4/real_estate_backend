@@ -23,13 +23,13 @@ const uploadImg = (app) => {
 	})
 
 	const upload = multer({ storage: storage })
-	app.use('/uploads', Express.static(uploadDirectory))
+	app.use('/real-estate-backend/uploads/', Express.static(uploadDirectory))
 
 	const srcDirectory = path.join(__dirname, 'src')
 
-	app.use('/src', Express.static(srcDirectory)) 
+	app.use('/real-estate-backend/src', Express.static(srcDirectory)) 
 
-	app.post("/post-photo", upload.single('file'), async (req, res) => {
+	app.post("/real-estate-backend/post-photo", upload.single('file'), async (req, res) => {
 		res.set("Access-Control-Allow-Origin", "*")
 		console.log(req.body)
 		res.status(200).json("Successful")
