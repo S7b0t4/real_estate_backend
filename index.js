@@ -35,6 +35,15 @@ app.use(Express.json());
 app.use(Express.static(path.join(__dirname, 'Client', 'build')));
 
 
+
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'Client', 'build', 'index.html'));
+});
+
+app.get('/real-estate/:id', (req, res) => {
+  res.sendFile(path.join(__dirname, 'Client', 'build', 'index.html'));
+});
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'Client', 'build', 'index.html'));
 });
