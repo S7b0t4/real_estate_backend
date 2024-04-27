@@ -1,3 +1,3 @@
-[submodule "real_estate"]
-	path = real_estate
-	url = https://github.com/S7b0t4/real_estate
+[submodule "Client"]
+	path = Client
+	url = https://github.com/S7b0t4/real_estate.git
