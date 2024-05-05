@@ -1,6 +1,6 @@
 # real_estate_backend
 
-rm -rf Client
+git rm --cached Client
 
 git submodule add https://github.com/S7b0t4/real_estate.git Client
 
